@@ -6,6 +6,7 @@ import './App.css';
 import { useActions } from './hooks/useActions';
 import { IUser } from './models/IUser';
 
+
 const App: FC = () => {
   const { setUser, setIsAuth } = useActions();
 
@@ -13,7 +14,7 @@ const App: FC = () => {
     if (localStorage.getItem('auth')) {
       setUser({ username: localStorage.getItem('username' || '') } as IUser);
       setIsAuth(true);
-    }
+    } 
   }, []);
 
   return (

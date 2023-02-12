@@ -6,6 +6,7 @@ import { IEvent } from '../models/IEvent';
 import { Moment } from 'moment';
 import { formatDate } from '../utils/date';
 import { useTypedSelector } from '../hooks/useTypedSelector';
+import {Dayjs} from "dayjs"
 
 interface EventFormProps {
   guests: IUser[];
@@ -21,7 +22,7 @@ const EventForm: FC<EventFormProps> = (props) => {
   } as IEvent);
   const { user } = useTypedSelector((state) => state.auth);
 
-  const selectDate = (date: Moment | null) => {
+  const selectDate = (date: Dayjs | null) => {
     if (date) {
       setEvent({ ...event, date: formatDate(date.toDate()) });
     }
@@ -48,10 +49,10 @@ const EventForm: FC<EventFormProps> = (props) => {
         name="date"
         rules={[
           rules.required(),
-          rules.isDateAfter('Нельзя создать событие в прошлом'),
+          rules.isDateAfter('You cannot create an event in the past'),
         ]}
       >
-        <DatePicker onChange={(date) => selectDate(date)} />
+        <DatePicker onChange={(date) => selectDate(date)} picker="month" />
       </Form.Item>
       <Form.Item label="Select a guest" name="guest" rules={[rules.required()]}>
         <DatePicker onChange={(date) => selectDate(date)} />
